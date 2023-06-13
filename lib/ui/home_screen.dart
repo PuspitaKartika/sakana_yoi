@@ -337,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(30),
+        padding: EdgeInsets.only(top: 30, right: 30, left: 30),
         color: backgroundColor,
         child: ListView(
           children: [
