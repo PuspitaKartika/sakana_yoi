@@ -12,34 +12,39 @@ class _DetailIndikatorState extends State<DetailIndikator> {
   @override
   Widget build(BuildContext context) {
     Widget suhuAir() {
-      return Container(
-        width: 120,
-        padding: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: backgroundColor),
-        child: Column(
-          children: [
-            Text(
-              "Suhu Air",
-              style: primaryTextStyle.copyWith(
-                  fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Image.asset(
-              "assets/suhuAir.png",
-              width: 35,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              "24°C",
-              style: primaryTextStyle.copyWith(
-                  fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
+      return GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/suhuAir');
+        },
+        child: Container(
+          width: 120,
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: backgroundColor),
+          child: Column(
+            children: [
+              Text(
+                "Suhu Air",
+                style: primaryTextStyle.copyWith(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Image.asset(
+                "assets/suhuAir.png",
+                width: 35,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "24°C",
+                style: primaryTextStyle.copyWith(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       );
     }
