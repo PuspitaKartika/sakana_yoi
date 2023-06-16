@@ -21,97 +21,102 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //Indikator
   Widget indikator() {
-    return Container(
-      decoration: BoxDecoration(
-          color: blueColor, borderRadius: BorderRadius.circular(5)),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-      child: Column(children: [
-        Text(
-          "Indikator",
-          style: whiteTextStyle.copyWith(
-              fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.22,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  color: lightBlueColor,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Column(children: [
-                Text(
-                  "Tinggi aiir",
-                  style: primaryTextStyle.copyWith(fontSize: 10),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "200 cm",
-                  style: primaryTextStyle.copyWith(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-              ]),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              width: MediaQuery.of(context).size.width * 0.22,
-              decoration: BoxDecoration(
-                  color: lightBlueColor,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Column(children: [
-                Text(
-                  "Suhu Air",
-                  style: primaryTextStyle.copyWith(fontSize: 10),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "24°C",
-                  style: primaryTextStyle.copyWith(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-              ]),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              width: MediaQuery.of(context).size.width * 0.22,
-              decoration: BoxDecoration(
-                  color: lightBlueColor,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Column(children: [
-                Text(
-                  "Aliran Air",
-                  style: primaryTextStyle.copyWith(fontSize: 10),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "5 m/s",
-                  style: primaryTextStyle.copyWith(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-              ]),
-            )
-          ],
-        )
-      ]),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/detailIndikator');
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: blueColor, borderRadius: BorderRadius.circular(5)),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: Column(children: [
+          Text(
+            "Indikator",
+            style: whiteTextStyle.copyWith(
+                fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.22,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                    color: lightBlueColor,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Column(children: [
+                  Text(
+                    "Tinggi aiir",
+                    style: primaryTextStyle.copyWith(fontSize: 10),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    "200 cm",
+                    style: primaryTextStyle.copyWith(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ]),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                width: MediaQuery.of(context).size.width * 0.22,
+                decoration: BoxDecoration(
+                    color: lightBlueColor,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Column(children: [
+                  Text(
+                    "Suhu Air",
+                    style: primaryTextStyle.copyWith(fontSize: 10),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    "24°C",
+                    style: primaryTextStyle.copyWith(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ]),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                width: MediaQuery.of(context).size.width * 0.22,
+                decoration: BoxDecoration(
+                    color: lightBlueColor,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Column(children: [
+                  Text(
+                    "Aliran Air",
+                    style: primaryTextStyle.copyWith(fontSize: 10),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    "5 m/s",
+                    style: primaryTextStyle.copyWith(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ]),
+              )
+            ],
+          )
+        ]),
+      ),
     );
   }
 

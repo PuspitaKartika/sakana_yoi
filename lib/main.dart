@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sakana_yoi/ui/home_screen.dart';
+import 'package:sakana_yoi/ui/indikator/detail_indikator.dart';
 import 'package:sakana_yoi/ui/navigator_bottom.dart';
 import 'package:sakana_yoi/ui/splash_screen.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(),
         '/home': (context) => NavigatorButton(),
+        '/detailIndikator': (context) => DetailIndikator(),
       },
     );
   }
