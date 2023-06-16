@@ -9,6 +9,7 @@ class BeriMakanScreen extends StatefulWidget {
 }
 
 class _BeriMakanScreenState extends State<BeriMakanScreen> {
+  bool cek = false;
   Widget manual() {
     return Container(
       width: 100,
@@ -81,27 +82,35 @@ class _BeriMakanScreenState extends State<BeriMakanScreen> {
                   fontSize: 10, fontWeight: FontWeight.bold),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  cek = !cek;
+                });
+              },
               child: Text(
                 "12 jam sekali",
                 style: primaryTextStyle.copyWith(
-                    color: Colors.white, fontSize: 12),
+                    color: cek ? Colors.white : blueColor, fontSize: 12),
               ),
               style: ElevatedButton.styleFrom(
-                  backgroundColor: blueColor,
+                  backgroundColor: cek ? blueColor : Colors.white,
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20))),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  cek = !cek;
+                });
+              },
               child: Text(
-                "12 jam sekali",
-                style:
-                    primaryTextStyle.copyWith(color: blueColor, fontSize: 12),
+                "24 jam sekali",
+                style: primaryTextStyle.copyWith(
+                    color: cek ? blueColor : Colors.white, fontSize: 12),
               ),
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: cek ? Colors.white : blueColor,
                   padding: EdgeInsets.symmetric(
                     horizontal: 10,
                   ),
