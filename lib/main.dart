@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sakana_yoi/ui/home_screen.dart';
 import 'package:sakana_yoi/ui/indikator/detail_indikator.dart';
 import 'package:sakana_yoi/ui/indikator/detail_suhu_air.dart';
+import 'package:sakana_yoi/ui/indikator/detail_tinggi_air.dart';
 import 'package:sakana_yoi/ui/navigator_bottom.dart';
 import 'package:sakana_yoi/ui/splash_screen.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => NavigatorButton(),
         '/detailIndikator': (context) => DetailIndikator(),
         '/suhuAir': (context) => DetailSuhuAir(),
+        '/tinggiAir': (context) => DetailTinggiAir(),
       },
     );
   }
