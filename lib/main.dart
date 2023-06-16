@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sakana_yoi/ui/home_screen.dart';
+import 'package:sakana_yoi/ui/indikator/detail_aliran_air.dart';
 import 'package:sakana_yoi/ui/indikator/detail_indikator.dart';
 import 'package:sakana_yoi/ui/indikator/detail_suhu_air.dart';
 import 'package:sakana_yoi/ui/indikator/detail_tinggi_air.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/detailIndikator': (context) => DetailIndikator(),
         '/suhuAir': (context) => DetailSuhuAir(),
         '/tinggiAir': (context) => DetailTinggiAir(),
+        '/aliranAir': (context) => DetailAliranAir(),
       },
     );
   }

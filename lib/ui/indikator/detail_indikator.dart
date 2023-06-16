@@ -88,34 +88,39 @@ class _DetailIndikatorState extends State<DetailIndikator> {
     }
 
     Widget aliranAir() {
-      return Container(
-        width: 120,
-        padding: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: backgroundColor),
-        child: Column(
-          children: [
-            Text(
-              "Aliran Air",
-              style: primaryTextStyle.copyWith(
-                  fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Image.asset(
-              "assets/aliranAir.png",
-              width: 70,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              "5 m/s",
-              style: primaryTextStyle.copyWith(
-                  fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ],
+      return GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/aliranAir');
+        },
+        child: Container(
+          width: 120,
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), color: backgroundColor),
+          child: Column(
+            children: [
+              Text(
+                "Aliran Air",
+                style: primaryTextStyle.copyWith(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Image.asset(
+                "assets/aliranAir.png",
+                width: 70,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "5 m/s",
+                style: primaryTextStyle.copyWith(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       );
     }
