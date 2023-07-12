@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sakana_yoi/theme.dart';
+
+import '../repositories/sensor_repo.dart';
+import '../utils/sensor_model.dart';
 
 class IndikatorScreen extends StatefulWidget {
   const IndikatorScreen({super.key});
@@ -9,6 +14,22 @@ class IndikatorScreen extends StatefulWidget {
 }
 
 class _IndikatorScreenState extends State<IndikatorScreen> {
+  SensorRepo _sensorRepo = SensorRepo();
+  SensorModel _sensorData = SensorModel();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSensorData();
+  }
+  Future<void> fetchSensorData() async {
+    String response = await _sensorRepo.getSensor();
+    Map<String, dynamic> json = jsonDecode(response);
+    SensorModel sensorData = SensorModel.fromJson(json);
+    setState(() {
+      _sensorData = sensorData;
+    });
+  }
   @override
   Widget baik() {
     return Container(
@@ -63,7 +84,7 @@ class _IndikatorScreenState extends State<IndikatorScreen> {
                   height: 15,
                 ),
                 Text(
-                  "200 cm",
+                  "${_sensorData.sensorTinggi}",
                   style: primaryTextStyle.copyWith(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -87,7 +108,7 @@ class _IndikatorScreenState extends State<IndikatorScreen> {
                   height: 15,
                 ),
                 Text(
-                  "24°C",
+                  "${_sensorData.sensorSuhu}°C",
                   style: primaryTextStyle.copyWith(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -111,7 +132,7 @@ class _IndikatorScreenState extends State<IndikatorScreen> {
                   height: 15,
                 ),
                 Text(
-                  "5 m/s",
+                  "${_sensorData.sensorFlow} m/s",
                   style: primaryTextStyle.copyWith(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),

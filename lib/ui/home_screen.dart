@@ -3,6 +3,9 @@ import 'package:sakana_yoi/theme.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../repositories/sensor_repo.dart';
+import '../utils/sensor_model.dart';
+
 
 
 class HomeScreen extends StatefulWidget {
@@ -13,36 +16,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool makan = false;
-  int sensorFlow = 0;
-  double sensorFlowTotal = 0.0;
-  double sensorSuhu = 0.0;
-  String sensorTinggi = '';
+  SensorRepo _sensorRepo = SensorRepo();
+  SensorModel _sensorData = SensorModel();
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchSensorData();
   }
-
-  Future<void> fetchData() async {
-    final url = Uri.parse('https://sakanayoi-ikan-default-rtdb.asia-southeast1.firebasedatabase.app/.json');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      setState(() {
-        makan = data['makan'] ?? false;
-        sensorFlow = data['sensorFlow'] ?? 0;
-        sensorFlowTotal = data['sensorFlowTotal'] ?? 0.0;
-        sensorSuhu = data['sensorSuhu'] ?? 0.0;
-        sensorTinggi = data['sensorTinggi'] ?? '';
-      });
-    } else {
-      print('Failed to fetch data from the server');
-    }
+  Future<void> fetchSensorData() async {
+    String response = await _sensorRepo.getSensor();
+    Map<String, dynamic> json = jsonDecode(response);
+    SensorModel sensorData = SensorModel.fromJson(json);
+    setState(() {
+      _sensorData = sensorData;
+    });
   }
-  //final DatabaseReference _database = FirebaseDatabase.instance.ref();
   @override
 
   Widget header() {
@@ -92,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 15,
                   ),
                   Text(
-                    sensorTinggi,
+                    '${_sensorData.sensorTinggi}',
                     style: primaryTextStyle.copyWith(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
@@ -116,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 15,
                   ),
                   Text(
-                    "${sensorSuhu} °C",
+                    "${_sensorData.sensorSuhu} °C",
                     //"24°C",
                     style: primaryTextStyle.copyWith(
                         fontSize: 20, fontWeight: FontWeight.bold),
@@ -141,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 15,
                   ),
                   Text(
-                    sensorFlow.toString(),
+                    '${_sensorData.sensorFlow} m/s',
                     style: primaryTextStyle.copyWith(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
