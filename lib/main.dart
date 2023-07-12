@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sakana_yoi/ui/home_screen.dart';
 import 'package:sakana_yoi/ui/indikator/detail_aliran_air.dart';
@@ -7,7 +8,13 @@ import 'package:sakana_yoi/ui/indikator/detail_tinggi_air.dart';
 import 'package:sakana_yoi/ui/navigator_bottom.dart';
 import 'package:sakana_yoi/ui/splash_screen.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

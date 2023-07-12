@@ -27,10 +27,10 @@ class _BeriMakanScreenState extends State<BeriMakanScreen> {
               color: Colors.white, fontWeight: FontWeight.bold),
         ),
         Spacer(),
-        Text(
-          "Klik untuk memberi makan secara manual",
-          style: primaryTextStyle.copyWith(fontSize: 8, color: Colors.white),
-        )
+        // Text(
+        //   "Klik untuk memberi makan secara manual",
+        //   style: primaryTextStyle.copyWith(fontSize: 8, color: Colors.white),
+        // )
       ]),
     );
   }
@@ -57,10 +57,10 @@ class _BeriMakanScreenState extends State<BeriMakanScreen> {
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
         ),
         Spacer(),
-        Text(
-          "Klik untuk memberi makan secara manual",
-          style: primaryTextStyle.copyWith(fontSize: 8, color: Colors.white),
-        )
+        // Text(
+        //   "Klik untuk memberi makan secara manual",
+        //   style: primaryTextStyle.copyWith(fontSize: 8, color: Colors.white),
+        // )
       ]),
     );
   }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "405557219138",
+    "firebase_url": "https://sakanayoi-ikan-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sakanayoi-ikan",
+    "storage_bucket": "sakanayoi-ikan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405557219138:android:e149bd95a9349b57d902db",
+        "android_client_info": {
+          "package_name": "com.example.sakana_yoi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405557219138-pcov04fc2np9qnhbnno9j960aqgbnk40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgLHKpCSczN2ot5DUKhdK7cUT3YiT9dfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405557219138-pcov04fc2np9qnhbnno9j960aqgbnk40.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "405557219138-hmuhq6saajmom4888gtig8pt4jdva9vb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sakanaYoi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,14 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:sakana_yoi/theme.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key : key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool makan = false;
+  int sensorFlow = 0;
+  double sensorFlowTotal = 0.0;
+  double sensorSuhu = 0.0;
+  String sensorTinggi = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    final url = Uri.parse('https://sakanayoi-ikan-default-rtdb.asia-southeast1.firebasedatabase.app/.json');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        makan = data['makan'] ?? false;
+        sensorFlow = data['sensorFlow'] ?? 0;
+        sensorFlowTotal = data['sensorFlowTotal'] ?? 0.0;
+        sensorSuhu = data['sensorSuhu'] ?? 0.0;
+        sensorTinggi = data['sensorTinggi'] ?? '';
+      });
+    } else {
+      print('Failed to fetch data from the server');
+    }
+  }
+  //final DatabaseReference _database = FirebaseDatabase.instance.ref();
+  @override
+
   Widget header() {
     return Container(
       child: Text(
@@ -56,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 15,
                   ),
                   Text(
-                    "200 cm",
+                    sensorTinggi,
                     style: primaryTextStyle.copyWith(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
@@ -80,7 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 15,
                   ),
                   Text(
-                    "24°C",
+                    "${sensorSuhu} °C",
+                    //"24°C",
                     style: primaryTextStyle.copyWith(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
@@ -104,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 15,
                   ),
                   Text(
-                    "5 m/s",
+                    sensorFlow.toString(),
                     style: primaryTextStyle.copyWith(
                         fontSize: 20, fontWeight: FontWeight.bold),
                   ),
