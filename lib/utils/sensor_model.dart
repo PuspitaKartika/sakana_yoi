@@ -9,7 +9,7 @@ class SensorModel{
   bool? makan = false;
   int? sensorFlow = 0;
   double? sensorFlowTotal = 0.0;
-  double? sensorSuhu = 0.0;
+  int? sensorSuhu = 0;
   String? sensorTinggi = '';
 
   factory SensorModel.fromJson(Map<String, dynamic> json){

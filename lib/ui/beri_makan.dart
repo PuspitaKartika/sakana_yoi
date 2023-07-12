@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sakana_yoi/theme.dart';
 
+import '../repositories/sensor_repo.dart';
+
 class BeriMakanScreen extends StatefulWidget {
   const BeriMakanScreen({super.key});
 
@@ -9,6 +11,7 @@ class BeriMakanScreen extends StatefulWidget {
 }
 
 class _BeriMakanScreenState extends State<BeriMakanScreen> {
+  SensorRepo _sensorRepo = SensorRepo();
   bool cek = false;
   Widget manual() {
     return Container(
@@ -36,32 +39,39 @@ class _BeriMakanScreenState extends State<BeriMakanScreen> {
   }
 
   Widget otomatis() {
-    return Container(
-      width: 100,
-      height: 100,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: blueColor),
-      child: Column(children: [
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          "Otomatis",
-          style: primaryTextStyle.copyWith(
-              color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          "(Sehari 3x)",
-          style: primaryTextStyle.copyWith(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
-        ),
-        Spacer(),
-        // Text(
-        //   "Klik untuk memberi makan secara manual",
-        //   style: primaryTextStyle.copyWith(fontSize: 8, color: Colors.white),
-        // )
-      ]),
+    return GestureDetector(
+      onTap: (){
+        // _sensorRepo.updateMakan().then((response) =>
+        // print("Respon updateMakan : $response")
+        // );
+      },
+      child: Container(
+        width: 100,
+        height: 100,
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: blueColor),
+        child: Column(children: [
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            "Otomatis",
+            style: primaryTextStyle.copyWith(
+                color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            "(Sehari 3x)",
+            style: primaryTextStyle.copyWith(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+          ),
+          Spacer(),
+          // Text(
+          //   "Klik untuk memberi makan secara manual",
+          //   style: primaryTextStyle.copyWith(fontSize: 8, color: Colors.white),
+          // )
+        ]),
+      ),
     );
   }
 

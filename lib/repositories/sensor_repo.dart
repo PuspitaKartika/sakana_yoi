@@ -1,3 +1,4 @@
+import 'package:sakana_yoi/utils/constants.dart';
 import 'package:sakana_yoi/utils/sensor_model.dart';
 import 'package:sakana_yoi/utils/server.dart';
 
@@ -6,4 +7,16 @@ class SensorRepo extends BaseService{
     final res = await request('https://sakanayoi-ikan-default-rtdb.asia-southeast1.firebasedatabase.app/.json');
     return res.body;
   }
+
+  Future<String> updateMakan({
+    bool? makan = true ,
+  }) async {
+    final res = await request(BaseString.BASE_URL, requestType: RequestType.UPDATE, data: {
+      'makan': makan,
+    });
+    return res.body;
+  }
+
 }
+
+
