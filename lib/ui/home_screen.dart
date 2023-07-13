@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sakana_yoi/theme.dart';
-import 'package:http/http.dart' as http;
+import 'package:timer_builder/timer_builder.dart';
 import 'dart:convert';
 
 import '../repositories/sensor_repo.dart';
@@ -18,12 +20,24 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   SensorRepo _sensorRepo = SensorRepo();
   SensorModel _sensorData = SensorModel();
+  bool _isFetchingData = true;
+  StreamController<void> _streamController = StreamController<void>();
+
+
 
   @override
   void initState() {
     super.initState();
+    _startFetchingData();
     fetchSensorData();
   }
+  void _startFetchingData() {
+    Timer.periodic(Duration(seconds: 1), (_) async {
+      await fetchSensorData();
+      _streamController.add(null);
+    });
+  }
+
   Future<void> fetchSensorData() async {
     String response = await _sensorRepo.getSensor();
     Map<String, dynamic> json = jsonDecode(response);
@@ -32,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _sensorData = sensorData;
     });
   }
+
   @override
 
   Widget header() {
@@ -46,103 +61,107 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //Indikator
   Widget indikator() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/detailIndikator');
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            color: blueColor, borderRadius: BorderRadius.circular(5)),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-        child: Column(children: [
-          Text(
-            "Indikator",
-            style: whiteTextStyle.copyWith(
-                fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.22,
-                padding: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                    color: lightBlueColor,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Column(children: [
-                  Text(
-                    "Tinggi aiir",
-                    style: primaryTextStyle.copyWith(fontSize: 10),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    '${_sensorData.sensorTinggi}',
-                    style: primaryTextStyle.copyWith(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                ]),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                width: MediaQuery.of(context).size.width * 0.22,
-                decoration: BoxDecoration(
-                    color: lightBlueColor,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Column(children: [
-                  Text(
-                    "Suhu Air",
-                    style: primaryTextStyle.copyWith(fontSize: 10),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "${_sensorData.sensorSuhu} °C",
-                    //"24°C",
-                    style: primaryTextStyle.copyWith(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                ]),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                width: MediaQuery.of(context).size.width * 0.22,
-                decoration: BoxDecoration(
-                    color: lightBlueColor,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Column(children: [
-                  Text(
-                    "Aliran Air",
-                    style: primaryTextStyle.copyWith(fontSize: 10),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    '${_sensorData.sensorFlow} m/s',
-                    style: primaryTextStyle.copyWith(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                ]),
-              )
-            ],
-          )
-        ]),
-      ),
+    return TimerBuilder.periodic(Duration(seconds: 1), builder: (context){
+      return GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/detailIndikator');
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              color: blueColor, borderRadius: BorderRadius.circular(5)),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: Column(children: [
+            Text(
+              "Indikator",
+              style: whiteTextStyle.copyWith(
+                  fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.23,
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                      color: lightBlueColor,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(children: [
+                    Text(
+                      "Tinggi aiir",
+                      style: primaryTextStyle.copyWith(fontSize: 10),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      '${_sensorData.sensorTinggi}',
+                      style: primaryTextStyle.copyWith(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                  ]),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  decoration: BoxDecoration(
+                      color: lightBlueColor,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(children: [
+                    Text(
+                      "Suhu Air",
+                      style: primaryTextStyle.copyWith(fontSize: 10),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "${_sensorData.sensorSuhu} °C",
+                      //"24°C",
+                      style: primaryTextStyle.copyWith(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                  ]),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  decoration: BoxDecoration(
+                      color: lightBlueColor,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Column(children: [
+                    Text(
+                      "Aliran Air",
+                      style: primaryTextStyle.copyWith(fontSize: 10),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      '${_sensorData.sensorFlow} m/s',
+                      style: primaryTextStyle.copyWith(
+                          fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                  ]),
+                )
+              ],
+            )
+          ]),
+        ),
+      );
+    },
+
     );
   }
 
