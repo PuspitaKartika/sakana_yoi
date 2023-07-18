@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -16,12 +17,23 @@ class IndikatorScreen extends StatefulWidget {
 class _IndikatorScreenState extends State<IndikatorScreen> {
   SensorRepo _sensorRepo = SensorRepo();
   SensorModel _sensorData = SensorModel();
+  bool _isFetchingData = true;
+  StreamController<void> _streamController = StreamController<void>();
 
   @override
   void initState() {
     super.initState();
+    _startFetchingData();
     fetchSensorData();
   }
+
+  void _startFetchingData() {
+    Timer.periodic(Duration(seconds: 1), (_) async {
+      await fetchSensorData();
+      _streamController.add(null);
+    });
+  }
+
   Future<void> fetchSensorData() async {
     String response = await _sensorRepo.getSensor();
     Map<String, dynamic> json = jsonDecode(response);
@@ -30,6 +42,7 @@ class _IndikatorScreenState extends State<IndikatorScreen> {
       _sensorData = sensorData;
     });
   }
+
   @override
   Widget baik() {
     return Container(

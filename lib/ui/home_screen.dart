@@ -8,8 +8,6 @@ import 'dart:convert';
 import '../repositories/sensor_repo.dart';
 import '../utils/sensor_model.dart';
 
-
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key : key);
 
@@ -22,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SensorModel _sensorData = SensorModel();
   bool _isFetchingData = true;
   StreamController<void> _streamController = StreamController<void>();
-
+  Timer? _fetchDataTimer;
 
 
   @override
@@ -31,8 +29,18 @@ class _HomeScreenState extends State<HomeScreen> {
     _startFetchingData();
     fetchSensorData();
   }
+
+  @override
+  void dispose() {
+    // Cancel the periodic timer if it's still active
+    _fetchDataTimer?.cancel();
+    _streamController.close(); // Close the StreamController to release resources
+    super.dispose();
+  }
+
+
   void _startFetchingData() {
-    Timer.periodic(Duration(seconds: 1), (_) async {
+    _fetchDataTimer =  Timer.periodic(Duration(seconds: 1), (_) async {
       await fetchSensorData();
       _streamController.add(null);
     });

@@ -1,5 +1,11 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sakana_yoi/theme.dart';
+
+import '../../repositories/sensor_repo.dart';
+import '../../utils/sensor_model.dart';
 
 class DetailIndikator extends StatefulWidget {
   const DetailIndikator({super.key});
@@ -9,6 +15,44 @@ class DetailIndikator extends StatefulWidget {
 }
 
 class _DetailIndikatorState extends State<DetailIndikator> {
+  SensorRepo _sensorRepo = SensorRepo();
+  SensorModel _sensorData = SensorModel();
+  bool _isFetchingData = true;
+  StreamController<void> _streamController = StreamController<void>();
+  Timer? _fetchDataTimer;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _startFetchingData();
+    fetchSensorData();
+  }
+
+  @override
+  void dispose() {
+    // Cancel the periodic timer if it's still active
+    _fetchDataTimer?.cancel();
+    _streamController.close(); // Close the StreamController to release resources
+    super.dispose();
+  }
+
+
+  void _startFetchingData() {
+    _fetchDataTimer =  Timer.periodic(Duration(seconds: 1), (_) async {
+      await fetchSensorData();
+      _streamController.add(null);
+    });
+  }
+
+  Future<void> fetchSensorData() async {
+    String response = await _sensorRepo.getSensor();
+    Map<String, dynamic> json = jsonDecode(response);
+    SensorModel sensorData = SensorModel.fromJson(json);
+    setState(() {
+      _sensorData = sensorData;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     Widget suhuAir() {
@@ -39,7 +83,7 @@ class _DetailIndikatorState extends State<DetailIndikator> {
                 height: 5,
               ),
               Text(
-                "24°C",
+                "${_sensorData.sensorSuhu}°C",
                 style: primaryTextStyle.copyWith(
                     fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -77,7 +121,7 @@ class _DetailIndikatorState extends State<DetailIndikator> {
                 height: 5,
               ),
               Text(
-                "200 cm",
+                "${_sensorData.sensorTinggi}",
                 style: primaryTextStyle.copyWith(
                     fontSize: 16, fontWeight: FontWeight.bold),
               ),
@@ -115,7 +159,7 @@ class _DetailIndikatorState extends State<DetailIndikator> {
                 height: 5,
               ),
               Text(
-                "5 m/s",
+                "${_sensorData.sensorFlow} m/s",
                 style: primaryTextStyle.copyWith(
                     fontSize: 16, fontWeight: FontWeight.bold),
               ),
